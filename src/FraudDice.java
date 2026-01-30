@@ -6,7 +6,7 @@
 
 public class FraudDice {
 
-    int fraudDice;
+    private int fraudDice;
 
     //주사위 돌리기 -> 점수 반환
     public int roll() {

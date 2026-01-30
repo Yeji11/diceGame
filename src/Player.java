@@ -5,22 +5,27 @@
  */
 public class Player {
 
-
     //normalPlayer의 속성
-    static String player = "주윤덕";
-    Dice dice = new Dice();
-    int normalDicePoint;
-    int totalNormalPoint;
+    public static String name;
+    private final Dice dice = new Dice();
+    private int totalNormalPoint = 0;
+    Judge judge;
+
+    public String playerName1(){
+        name = judge.registerPlayer1();
+        return name;
+    }
 
     //주사위를 돌린다
     public int play() {
-        dice.roll();
-        return dice.normalDice;
+        this.playerName1();
+        int point = dice.roll();
+        return sumPoint(point);
     }
+
     //점수를 저장한다
-    public int savePoint() {
-        normalDicePoint = this.play();
-        totalNormalPoint += normalDicePoint;
+    protected int sumPoint(int point) {
+        totalNormalPoint += point;
         return totalNormalPoint;
     }
 }

@@ -7,11 +7,17 @@ public class Main {
 
         Judge judge = new Judge();
 
-        Recorder recorder = new Recorder(judge.player, judge.fraudPlayer);
-
         System.out.println("게임 시작하겠습니다.");
+
+        judge.registerPlayer1();
+        judge.registerPlayer2();
         judge.gameCount(); //게임 시작 호출
-        recorder.print();
+
+        // TODO 실제 게임 호출
+        judge.roundGame();
+
+        // TODO Judge가 시켜야 함
+        judge.gameResult();
 
     }
 }
