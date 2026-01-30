@@ -5,12 +5,11 @@
  */
 public class Dice {
 
-    int normalDice;
+    private int normalDice;
 
     //주사위 돌리기 -> 점수 반환
     public int roll() {
         normalDice = (int) (Math.random() * 6) + 1;
         return normalDice;
     }
-
 }
