@@ -6,21 +6,26 @@
 public class FraudPlayer {
 
     //fraudPlayer의 속성
-    static String fraudPlayer = "김예지";
-    FraudDice fraudDice = new FraudDice();
-    int fraudDicePoint;
-    int totalFraudPoint;
+    public static String name;
+    private final FraudDice fraudDice = new FraudDice();
+    private int totalFraudPoint;
+    Judge judge;
+
+    public String playerName2(){
+        name = judge.registerPlayer2();
+        return name;
+    }
 
     //주사위를 돌린다
     public int play() {
-        fraudDice.roll();
-        return fraudDice.fraudDice;
+        this.playerName2();
+        int point = fraudDice.roll();
+        return sumPoint(point);
     }
 
     //점수를 저장한다
-    public int savePoint() {
-        fraudDicePoint = this.play();
-        totalFraudPoint += fraudDicePoint;
+    public int sumPoint(int point) {
+        totalFraudPoint += point;
         return totalFraudPoint;
     }
 }
