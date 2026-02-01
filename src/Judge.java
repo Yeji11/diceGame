@@ -10,27 +10,57 @@ import java.util.Scanner;
 
 public class Judge {
 
-    //Judge의 속성
-    int num;
-    Player player = new Player();
-    FraudPlayer fraudPlayer = new FraudPlayer();
+    Player player;
+    FraudPlayer fraudPlayer;
+    Scanner scan = new Scanner(System.in);
+    Recorder recorder;
+    private int num;
+    String playerName;
+    String fraudPlayerName;
+    static String winner;
 
-    public void gameCount() {
+    Judge(Player player, FraudPlayer fraudPlayer) {
+        this.player = player;
+        this.fraudPlayer = fraudPlayer;
+    }
+
+    public int gameCount() {
+        this.registerPlayerName();
+        this.registerFraudPlayerName();
         System.out.println("게임은 몇 번 진행할까요?");
-        Scanner scan = new Scanner(System.in);
         num = scan.nextInt();
+        return num;
+    }
+
+    public String registerPlayerName() {
+        playerName = player.registerPlayer();
+        return this.playerName;
+    }
+
+    public String registerFraudPlayerName() {
+        fraudPlayerName = fraudPlayer.registerFraudPlayer();
+        return this.fraudPlayerName;
     }
 
     public void gameStart() {
-        player.savePoint();
-        fraudPlayer.savePoint();
+        player.play();
+        fraudPlayer.play();
     }
 
     public void roundGame() {
         for (int i = 0; i < num; i++) {
             this.gameStart();
+            this.recorder = new Recorder(player, fraudPlayer);
+            recorder.printCurrentPoints();
         }
     }
 
+    public void gameResult() {
+        if (recorder.playerPoint1 > recorder.playerPoint2) {
+            winner = this.playerName;
+        } else {
+            winner = this.fraudPlayerName;
+        }
+        recorder.printWinner();
+    }
 }
-

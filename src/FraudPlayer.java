@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * 1.플레이어의 이름을 저장한다
  * 2.주사위를 돌린다
@@ -5,22 +7,27 @@
  */
 public class FraudPlayer {
 
-    //fraudPlayer의 속성
-    static String fraudPlayer = "김예지";
-    FraudDice fraudDice = new FraudDice();
-    int fraudDicePoint;
-    int totalFraudPoint;
+    public String fraudPlayerName;
+    private final FraudDice fraudDice = new FraudDice();
+    private int totalFraudPoint;
+    Scanner scan = new Scanner(System.in);
+
+    //이름 등록
+        public String registerFraudPlayer(){
+            System.out.println("두번째 플레이어를 등록해주세요.");
+            fraudPlayerName = scan.nextLine();
+        return fraudPlayerName;
+    }
 
     //주사위를 돌린다
     public int play() {
-        fraudDice.roll();
-        return fraudDice.fraudDice;
+        int point = fraudDice.roll();
+        return sumPoint(point);
     }
 
     //점수를 저장한다
-    public int savePoint() {
-        fraudDicePoint = this.play();
-        totalFraudPoint += fraudDicePoint;
+    public int sumPoint(int point) {
+        totalFraudPoint += point;
         return totalFraudPoint;
     }
 }

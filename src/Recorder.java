@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 /**
  * 1.플레이어로부터 받은 점수를 저장한다(단순히 점수만 저장하면 된다)
  * 2.점수를 출력한다
@@ -18,27 +16,21 @@ public class Recorder {
     }
 
     public int getPoint1() {
-        playerPoint1 = player.savePoint();
+        playerPoint1 = player.sumPoint(playerPoint1);
         return playerPoint1;
     }
 
     public int getPoint2() {
-        playerPoint2 = fraudPlayer.savePoint();
+        playerPoint2 = fraudPlayer.sumPoint(playerPoint2);
         return playerPoint2;
     }
 
-    HashMap<String, Integer> map = new HashMap<>();
-
-    public HashMap<String, Integer> map() {
-        map.put(player.player, this.getPoint1());
-        map.put(fraudPlayer.fraudPlayer, this.getPoint2());
-        return map;
+    public void printCurrentPoints(){
+        System.out.println("[" + player.playerName + " : " + getPoint1() + "점 " + fraudPlayer.fraudPlayerName + " : " + getPoint2() + "점]");
     }
 
-    public void print() {
-        this.map();
-        System.out.println("[" + player.player + " : " + map.get(player.player) + "점 " + fraudPlayer.fraudPlayer + " : " + map.get(fraudPlayer.fraudPlayer) + "점]");
+    public void printWinner(){
+        System.out.println("승자는 " +Judge.winner + "입니다.");
     }
 }
-
 

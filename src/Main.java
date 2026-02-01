@@ -5,13 +5,20 @@
 public class Main {
     public static void main(String[] args) {
 
-        Judge judge = new Judge();
-
-        Recorder recorder = new Recorder(judge.player, judge.fraudPlayer);
+        Player player = new Player();
+        FraudPlayer fraudPlayer = new FraudPlayer();
+        Judge judge = new Judge(player, fraudPlayer);
 
         System.out.println("게임 시작하겠습니다.");
-        judge.gameCount(); //게임 시작 호출
-        recorder.print();
+
+        //정보 & 횟수 받기
+        judge.gameCount();
+
+        //게임 시작
+        judge.roundGame();
+
+        //게임 결과 출력
+        judge.gameResult();
 
     }
 }
