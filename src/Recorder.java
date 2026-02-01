@@ -26,7 +26,11 @@ public class Recorder {
     }
 
     public void printCurrentPoints(){
-        System.out.println("[" + player.name + " : " + getPoint1() + "점 " + fraudPlayer.name + " : " + getPoint2() + "점]");
+        System.out.println("[" + player.playerName + " : " + getPoint1() + "점 " + fraudPlayer.fraudPlayerName + " : " + getPoint2() + "점]");
+    }
+
+    public void printWinner(){
+        System.out.println("승자는 " +Judge.winner + "입니다.");
     }
 }
 

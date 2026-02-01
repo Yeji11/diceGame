@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * 1.플레이어의 이름을 저장한다
  * 2.주사위를 돌린다
@@ -5,20 +7,20 @@
  */
 public class FraudPlayer {
 
-    //fraudPlayer의 속성
-    public static String name;
+    public String fraudPlayerName;
     private final FraudDice fraudDice = new FraudDice();
     private int totalFraudPoint;
-    Judge judge;
+    Scanner scan = new Scanner(System.in);
 
-    public String playerName2(){
-        name = judge.registerPlayer2();
-        return name;
+    //이름 등록
+        public String registerFraudPlayer(){
+            System.out.println("두번째 플레이어를 등록해주세요.");
+            fraudPlayerName = scan.nextLine();
+        return fraudPlayerName;
     }
 
     //주사위를 돌린다
     public int play() {
-        this.playerName2();
         int point = fraudDice.roll();
         return sumPoint(point);
     }

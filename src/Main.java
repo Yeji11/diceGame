@@ -5,18 +5,19 @@
 public class Main {
     public static void main(String[] args) {
 
-        Judge judge = new Judge();
+        Player player = new Player();
+        FraudPlayer fraudPlayer = new FraudPlayer();
+        Judge judge = new Judge(player, fraudPlayer);
 
         System.out.println("게임 시작하겠습니다.");
 
-        judge.registerPlayer1();
-        judge.registerPlayer2();
-        judge.gameCount(); //게임 시작 호출
+        //정보 & 횟수 받기
+        judge.gameCount();
 
-        // TODO 실제 게임 호출
+        //게임 시작
         judge.roundGame();
 
-        // TODO Judge가 시켜야 함
+        //게임 결과 출력
         judge.gameResult();
 
     }

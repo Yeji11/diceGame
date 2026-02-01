@@ -10,53 +10,57 @@ import java.util.Scanner;
 
 public class Judge {
 
-    //Judge의 속성
-
-    Player player = new Player();
-    FraudPlayer fraudPlayer = new FraudPlayer();
+    Player player;
+    FraudPlayer fraudPlayer;
     Scanner scan = new Scanner(System.in);
-    Recorder recorder = new Recorder(player, fraudPlayer);
+    Recorder recorder;
     private int num;
+    String playerName;
+    String fraudPlayerName;
+    static String winner;
 
-    // TODO 이름 입력 받기 에러 발생
-    public String registerPlayer1() {
-        System.out.println("1번 플레이어를 등록해주세요");
-        String playerName1 = scan.nextLine();
-        playerName1 = player.name;
-        return playerName1;
-    }
-    // TODO 이름 입력 받기 에러 발생
-    public String registerPlayer2() {
-        System.out.println("2번 플레이어를 등록해주세요");
-        String playerName2 = scan.nextLine();
-        playerName2 = FraudPlayer.name;
-        return playerName2;
+    Judge(Player player, FraudPlayer fraudPlayer) {
+        this.player = player;
+        this.fraudPlayer = fraudPlayer;
     }
 
     public int gameCount() {
+        this.registerPlayerName();
+        this.registerFraudPlayerName();
         System.out.println("게임은 몇 번 진행할까요?");
         num = scan.nextInt();
         return num;
+    }
+
+    public String registerPlayerName() {
+        playerName = player.registerPlayer();
+        return this.playerName;
+    }
+
+    public String registerFraudPlayerName() {
+        fraudPlayerName = fraudPlayer.registerFraudPlayer();
+        return this.fraudPlayerName;
     }
 
     public void gameStart() {
         player.play();
         fraudPlayer.play();
     }
-    // TODO 누적값이 중복으로 더해지고 있는 에러 발생
+
     public void roundGame() {
         for (int i = 0; i < num; i++) {
             this.gameStart();
+            this.recorder = new Recorder(player, fraudPlayer);
             recorder.printCurrentPoints();
         }
     }
 
     public void gameResult() {
         if (recorder.playerPoint1 > recorder.playerPoint2) {
-            System.out.println("승자는 " + registerPlayer1() + "입니다");
+            winner = this.playerName;
         } else {
-            System.out.println("승자는 " + registerPlayer2() + "입니다");
+            winner = this.fraudPlayerName;
         }
+        recorder.printWinner();
     }
 }
-
