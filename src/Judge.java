@@ -6,31 +6,54 @@
  * 5.기록원을 통해 받은 점수로 승자를 판단한다
  */
 
-import java.util.Scanner;
-
 public class Judge {
 
-    //Judge의 속성
-    int num;
-    Player player = new Player();
-    FraudPlayer fraudPlayer = new FraudPlayer();
+    private Player player;
+    private FraudPlayer fraudPlayer;
+    private Recorder recorder;
+    private int gameCount;
+    protected String playerName;
+    protected String fraudPlayerName;
+    protected String winner;
 
-    public void gameCount() {
-        System.out.println("게임은 몇 번 진행할까요?");
-        Scanner scan = new Scanner(System.in);
-        num = scan.nextInt();
+    Judge(Player player, FraudPlayer fraudPlayer) {
+        this.player = player;
+        this.fraudPlayer = fraudPlayer;
+    }
+
+    public String registerPlayerName(String playerName) {
+        this.playerName = player.registerPlayer(playerName);
+        return this.playerName;
+    }
+
+    public String registerFraudPlayerName(String fraudPlayerName) {
+        this.fraudPlayerName = fraudPlayer.registerFraudPlayer(fraudPlayerName);
+        return this.fraudPlayerName;
+    }
+
+    public void gameCount(int gameCount) {
+        this.gameCount = gameCount;
     }
 
     public void gameStart() {
-        player.savePoint();
-        fraudPlayer.savePoint();
+        player.play();
+        fraudPlayer.play();
     }
 
     public void roundGame() {
-        for (int i = 0; i < num; i++) {
+        for (int i = 0; i < gameCount; i++) {
             this.gameStart();
+            this.recorder = new Recorder(player, fraudPlayer, this);
+            recorder.printCurrentPoints();
         }
     }
 
+    public void gameResult() {
+        if (recorder.playerPoint1 > recorder.playerPoint2) {
+           winner = this.playerName;
+        } else {
+            winner = this.fraudPlayerName;
+        }
+        recorder.printWinner();
+    }
 }
-
