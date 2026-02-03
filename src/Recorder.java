@@ -5,14 +5,16 @@
  */
 public class Recorder {
 
-    Player player;
-    FraudPlayer fraudPlayer;
-    int playerPoint1;
-    int playerPoint2;
+    private Player player;
+    private FraudPlayer fraudPlayer;
+    protected int playerPoint1;
+    protected int playerPoint2;
+    private Judge judge;
 
-    Recorder(Player player, FraudPlayer fraudPlayer) {
+    Recorder(Player player, FraudPlayer fraudPlayer,Judge judge) {
         this.player = player;
         this.fraudPlayer = fraudPlayer;
+        this.judge = judge;
     }
 
     public int getPoint1() {
@@ -26,11 +28,12 @@ public class Recorder {
     }
 
     public void printCurrentPoints(){
-        System.out.println("[" + player.playerName + " : " + getPoint1() + "점 " + fraudPlayer.fraudPlayerName + " : " + getPoint2() + "점]");
+        System.out.println("[" + judge.playerName + " : " + getPoint1() + "점 " + judge.fraudPlayerName + " : " + getPoint2() + "점]");
     }
 
     public void printWinner(){
-        System.out.println("승자는 " +Judge.winner + "입니다.");
+
+        System.out.println("승자는 " + judge.winner + "입니다.");
     }
 }
 

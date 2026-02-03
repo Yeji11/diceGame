@@ -7,15 +7,13 @@ import java.util.Scanner;
  */
 public class Player {
 
-    public String playerName;
+    private String playerName;
     private final Dice dice = new Dice();
     private int totalNormalPoint = 0;
-    Scanner scan = new Scanner(System.in);
 
     //이름 등록
-    public String registerPlayer(){
-        System.out.println("첫번째 플레이어를 등록해주세요.");
-        playerName = scan.nextLine();
+    public String registerPlayer(String name){
+        this.playerName  = name;
         return playerName;
     }
 
@@ -26,7 +24,7 @@ public class Player {
     }
 
     //점수를 저장한다
-    protected int sumPoint(int point) {
+    public int sumPoint(int point) {
         totalNormalPoint += point;
         return totalNormalPoint;
     }

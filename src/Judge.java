@@ -6,40 +6,33 @@
  * 5.기록원을 통해 받은 점수로 승자를 판단한다
  */
 
-import java.util.Scanner;
-
 public class Judge {
 
-    Player player;
-    FraudPlayer fraudPlayer;
-    Scanner scan = new Scanner(System.in);
-    Recorder recorder;
-    private int num;
-    String playerName;
-    String fraudPlayerName;
-    static String winner;
+    private Player player;
+    private FraudPlayer fraudPlayer;
+    private Recorder recorder;
+    private int gameCount;
+    protected String playerName;
+    protected String fraudPlayerName;
+    protected String winner;
 
     Judge(Player player, FraudPlayer fraudPlayer) {
         this.player = player;
         this.fraudPlayer = fraudPlayer;
     }
 
-    public int gameCount() {
-        this.registerPlayerName();
-        this.registerFraudPlayerName();
-        System.out.println("게임은 몇 번 진행할까요?");
-        num = scan.nextInt();
-        return num;
-    }
-
-    public String registerPlayerName() {
-        playerName = player.registerPlayer();
+    public String registerPlayerName(String playerName) {
+        this.playerName = player.registerPlayer(playerName);
         return this.playerName;
     }
 
-    public String registerFraudPlayerName() {
-        fraudPlayerName = fraudPlayer.registerFraudPlayer();
+    public String registerFraudPlayerName(String fraudPlayerName) {
+        this.fraudPlayerName = fraudPlayer.registerFraudPlayer(fraudPlayerName);
         return this.fraudPlayerName;
+    }
+
+    public void gameCount(int gameCount) {
+        this.gameCount = gameCount;
     }
 
     public void gameStart() {
@@ -48,16 +41,16 @@ public class Judge {
     }
 
     public void roundGame() {
-        for (int i = 0; i < num; i++) {
+        for (int i = 0; i < gameCount; i++) {
             this.gameStart();
-            this.recorder = new Recorder(player, fraudPlayer);
+            this.recorder = new Recorder(player, fraudPlayer, this);
             recorder.printCurrentPoints();
         }
     }
 
     public void gameResult() {
         if (recorder.playerPoint1 > recorder.playerPoint2) {
-            winner = this.playerName;
+           winner = this.playerName;
         } else {
             winner = this.fraudPlayerName;
         }

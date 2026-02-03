@@ -7,15 +7,13 @@ import java.util.Scanner;
  */
 public class FraudPlayer {
 
-    public String fraudPlayerName;
+    private String fraudPlayerName;
     private final FraudDice fraudDice = new FraudDice();
     private int totalFraudPoint;
-    Scanner scan = new Scanner(System.in);
 
     //이름 등록
-        public String registerFraudPlayer(){
-            System.out.println("두번째 플레이어를 등록해주세요.");
-            fraudPlayerName = scan.nextLine();
+    public String registerFraudPlayer(String name){
+        this.fraudPlayerName = name;
         return fraudPlayerName;
     }
 
