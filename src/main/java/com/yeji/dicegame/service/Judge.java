@@ -1,60 +1,44 @@
-package com.yeji.dicegame;
+package com.yeji.dicegame.service;
 
-/**
- * 1.플레이어 이름을 받는다
- * 2.게임 횟수를 받는다
- * 3.게임을 한 판씩 실행한다
- * 4.기록원을 통해 점수를 받는다
- * 5.기록원을 통해 받은 점수로 승자를 판단한다
- */
+import com.yeji.dicegame.domain.FraudPlayer;
+import com.yeji.dicegame.domain.Player;
+import com.yeji.dicegame.repository.FraudPlayerRepository;
+import com.yeji.dicegame.repository.PlayerRepository;
+import com.yeji.dicegame.repository.Recorder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+
+@Service
+@RequiredArgsConstructor
+
 public class Judge {
 
-    private Player player;
-    private FraudPlayer fraudPlayer;
-    private Recorder recorder;
-    private int gameCount;
-    protected String playerName;
-    protected String fraudPlayerName;
-    protected String winner;
+    private final PlayerRepository playerRepository;
+    private final FraudPlayerRepository fraudPlayerRepository;
+    private final Recorder recorder;
 
-    Judge(Player player, FraudPlayer fraudPlayer) {
-        this.player = player;
-        this.fraudPlayer = fraudPlayer;
+    public Judge(PlayerRepository playerRepository, FraudPlayerRepository fraudPlayerRepository, Recorder recorder) {
+        this.playerRepository = playerRepository;
+        this.fraudPlayerRepository = fraudPlayerRepository;
+        this.recorder = recorder;
     }
 
-    public String registerPlayerName(String playerName) {
-        this.playerName = player.registerPlayer(playerName);
-        return this.playerName;
-    }
+    public String registerPlayer(String playerName, String fraudPlayerName, int gameCount) {
+        Player player = new Player(null, playerName, "NORMAL",gameCount, 0, 0);
+        FraudPlayer fraudPlayer = new FraudPlayer(null, fraudPlayerName,gameCount, "FRAUD", 0, 0);
 
-    public String registerFraudPlayerName(String fraudPlayerName) {
-        this.fraudPlayerName = fraudPlayer.registerFraudPlayer(fraudPlayerName);
-        return this.fraudPlayerName;
-    }
+        playerRepository.save(player);
+        fraudPlayerRepository.save(fraudPlayer);
 
-    public void gameCount(int gameCount) {
-        this.gameCount = gameCount;
-    }
+        recorder.printGameStart(player, fraudPlayer, gameCount);
 
-    public void gameStart() {
-        player.play();
-        fraudPlayer.play();
-    }
 
-    public void roundGame() {
         for (int i = 0; i < gameCount; i++) {
-            this.gameStart();
-            this.recorder = new Recorder(player, fraudPlayer, this);
-            recorder.printCurrentPoints();
-        }
-    }
+            this.gameStart(player, fraudPlayer);
+            recorder.printCurrentPoints(player,fraudPlayer);
 
-    public void gameResult() {
-        if (recorder.playerPoint1 > recorder.playerPoint2) {
-           winner = this.playerName;
-        } else {
-            winner = this.fraudPlayerName;
         }
-        recorder.printWinner();
+        return "player1은 " + playerName + " player2는 " + fraudPlayerName + "게임은 " + gameCount + "번 진행하겠습니다.";
     }
 }

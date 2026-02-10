@@ -1,31 +1,32 @@
-package com.yeji.dicegame;
+package com.yeji.dicegame.domain;
 
-/**
- * 1.플레이어의 이름을 저장한다
- * 2.주사위를 돌린다
- * 3.점수를 저장한다
- */
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+
 public class FraudPlayer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private String fraudPlayerName;
-    private final FraudDice fraudDice = new FraudDice();
-    private int totalFraudPoint;
+    private Long id;
 
-    //이름 등록
-    public String registerFraudPlayer(String name){
-        this.fraudPlayerName = name;
-        return fraudPlayerName;
-    }
+    public String name;
 
-    //주사위를 돌린다
-    public int play() {
-        int point = fraudDice.roll();
-        return sumPoint(point);
-    }
+    private String mode;
 
-    //점수를 저장한다
-    public int sumPoint(int point) {
-        totalFraudPoint += point;
-        return totalFraudPoint;
-    }
+    private int gameCount;
+
+    public int currentScore;
+
+    private int totalScore;
+
 }

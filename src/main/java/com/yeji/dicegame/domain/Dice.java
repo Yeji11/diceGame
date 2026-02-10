@@ -1,4 +1,4 @@
-package com.yeji.dicegame;
+package com.yeji.dicegame.domain;
 
 /**
  * 1.주사위를 돌린다

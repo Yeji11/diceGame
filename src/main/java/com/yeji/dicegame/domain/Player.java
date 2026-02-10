@@ -1,31 +1,35 @@
-package com.yeji.dicegame;
+package com.yeji.dicegame.domain;
 
-/**
- * 1.플레이어의 이름을 저장한다(이름은 심판이 받음)
- * 2.주사위를 돌린다(주사위를 돌리라고 주사위 클래스 불러오면 됨)
- * 3.점수를 저장한다(총 합의 점수 저장)
- */
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+
 public class Player {
 
-    private String playerName;
-    private final Dice dice = new Dice();
-    private int totalNormalPoint = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    //이름 등록
-    public String registerPlayer(String name){
-        this.playerName  = name;
-        return playerName;
+    private Long id;
+
+    public String name;
+
+    private String mode;
+
+    private int gameCount;
+
+    public int currentScore;
+
+    private int totalScore;
+
     }
 
-    //주사위를 돌린다
-    public int play() {
-        int point = dice.roll();
-        return sumPoint(point);
-    }
 
-    //점수를 저장한다
-    public int sumPoint(int point) {
-        totalNormalPoint += point;
-        return totalNormalPoint;
-    }
-}
