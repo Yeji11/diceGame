@@ -12,30 +12,30 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Player {
+public class GamePlayer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
+    private String playerId;
 
     private String name;
 
-    private int totalGameCount;
-
-    private int totalWinCount;
+    private String mode;
 
     private int currentScore;
 
-    private int totalScore;
 
 
-    public static Player createPlayer(String playerName) {
-        return Player.builder()
+    public static GamePlayer createPlayer(String playerId, String playerName) {
+        return GamePlayer.builder()
                 .id(0L)
+                .playerId(playerId)
                 .currentScore(0)
+                .mode("NORMAL")
                 .name(playerName)
-                .totalGameCount(0)
-                .totalWinCount(0)
-                .totalScore(0)
                 .build();
     }
 
