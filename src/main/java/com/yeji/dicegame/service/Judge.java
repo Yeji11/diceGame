@@ -39,6 +39,7 @@ public class Judge {
         recorder.printGameStart(new GamePlayers(gamePlayers), gameCount);
     }
 
+
     public RoundResponse rollDice(String gameId) {
         //게임 정보 가져오기
         GameEntity game = gameRepository.findById(Long.parseLong(gameId)).get();
