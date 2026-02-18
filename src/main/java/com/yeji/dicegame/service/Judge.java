@@ -55,21 +55,4 @@ public class Judge {
         //결과 반환
         return RoundResponse(gameId,scores);
     }
-
-
-
-
-
-
-
-
-
-        for (int i = 0; i < gameCount; i++) {
-            this.gameStart(player, fraudPlayer);
-            recorder.printCurrentPoints(player,fraudPlayer);
-
-        }
-        //Todo 3. 게임 여러 판이 아닌 한 판에 대한 출력으로 변경
-        return "player1은 " + playerName + " player2는 " + fraudPlayerName + "게임은 " + gameCount + "번 진행하겠습니다.";
-    }
 }
