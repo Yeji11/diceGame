@@ -1,13 +1,8 @@
+package com.yeji.dicegame;
+
 /**주사위 모드
  * 약한 모드 : 5이상이면 다시 던지기
  * 강한 모드 : 2이하면 다시 던지기
  * 일반 모드 : 일반 모드
  */
-
-enum Mode {NORMAL, STRONG, WEAK}
-
-
-
-
-
-
+public enum Mode {NORMAL, STRONG, WEAK}
